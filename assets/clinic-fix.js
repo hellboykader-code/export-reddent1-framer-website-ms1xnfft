@@ -28,43 +28,46 @@
   }
   function norm(s){ return (s||'').replace(/\s+/g,' ').trim(); }
 
-  // ---------- 1) NAV en place (pas d'injection => stable) ----------
-  // Objectif : Accueil · À propos · Soins · Équipe (+ bouton Contact).
-  // On modifie les éléments existants : « Nos pages » -> Soins, « Blog » -> Équipe.
-  function headerScope(){ return document.querySelector('header')||document.querySelector('[data-framer-name*="Nav"]')||document.querySelector('[data-framer-name*="Header"]')||document.body; }
-  function navCandidates(){
-    var h=headerScope();
-    return [].slice.call(h.querySelectorAll('a,button,div,p,span')).filter(function(el){
-      var kids=[].filter.call(el.children,function(c){return c.tagName!=='SPAN'&&c.tagName!=='SVG'&&c.tagName!=='svg';});
-      return kids.length===0;
-    });
+  // ---------- 1) BARRE DE NAV 100% CUSTOM (indépendante de React) ----------
+  // On masque l'en-tête Framer d'origine et on injecte NOTRE barre dans <body>
+  // (hors racine React => jamais supprimée). URLs en « / » (routes Framer, pas index.html).
+  var LOGO=BASE+"/assets/framer/images/748Yvl23yjwdTa9ptR8Op9Z7c.svg";
+  var LINKS=[['Accueil',BASE+'/'],['À propos',BASE+'/about/'],['Soins',BASE+'/service/'],['Équipe',BASE+'/doctors/']];
+  function hideOriginalHeader(){
+    if(document.getElementById('rd-hidehead')) return;
+    var st=document.createElement('style'); st.id='rd-hidehead';
+    st.textContent='header,[data-framer-name="Header"]{display:none !important}';
+    (document.head||document.documentElement).appendChild(st);
   }
-  function killChevrons(el){ el.querySelectorAll('svg').forEach(function(s){ s.style.display='none'; }); }
-  function toLink(el,label,href){
-    setText(el,label);
-    killChevrons(el);
-    if(el.tagName==='A'){ el.setAttribute('href',href); }
-    if(!el.__rdnav){ el.__rdnav=1;
-      el.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); window.location.href=href; }, true);
-      el.style.cursor='pointer';
-    }
-  }
-  function fixNavInPlace(){
-    navCandidates().forEach(function(el){
-      var t=norm(el.textContent);
-      if(t==='Nos pages'||t==='All Pages'){ toLink(el,'Soins',BASE+'/service/index.html'); }
-      else if(t==='Blog'){ toLink(el,'Équipe',BASE+'/doctors/index.html'); }
-      else if(t==='Journal'||t==='404'||t==='News'||t==='Blogs'){ (el.closest('li')||el).style.display='none'; el.style.display='none'; }
-      else if(t==='Contact Us'){ setText(el,'Contact'); }
+  function go(href){ return function(e){ e.preventDefault(); e.stopPropagation(); window.location.assign(href); }; }
+  function buildNavbar(){
+    hideOriginalHeader();
+    if(document.getElementById('rd-navbar')) return;
+    var bar=document.createElement('div'); bar.id='rd-navbar';
+    bar.style.cssText='position:fixed;top:0;left:0;width:100%;z-index:2147483000;display:flex;'
+      +'align-items:center;justify-content:space-between;gap:20px;padding:14px 5%;box-sizing:border-box;'
+      +'background:rgba(11,30,23,.9);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);'
+      +"font-family:'Figtree','Inter',system-ui,sans-serif;";
+    // logo
+    var lg=document.createElement('a'); lg.href=LINKS[0][1]; lg.addEventListener('click',go(LINKS[0][1]));
+    lg.style.cssText='display:flex;align-items:center;flex:0 0 auto';
+    var img=document.createElement('img'); img.src=LOGO; img.alt='RedDent';
+    img.style.cssText='height:34px;width:auto;display:block'; lg.appendChild(img); bar.appendChild(lg);
+    // liens
+    var mid=document.createElement('div');
+    mid.style.cssText='display:flex;flex-direction:row;align-items:center;gap:34px;flex-wrap:nowrap';
+    LINKS.forEach(function(p){
+      var a=document.createElement('a'); a.href=p[1]; a.textContent=p[0]; a.addEventListener('click',go(p[1]));
+      a.style.cssText='color:#fff;font-size:16px;font-weight:500;text-decoration:none;white-space:nowrap;cursor:pointer';
+      mid.appendChild(a);
     });
-    // masquer le panneau déroulant (overlay) « Nos pages » : contient « Autres pages » / « Le cabinet »
-    document.querySelectorAll('div,section,nav,ul').forEach(function(el){
-      if(el.getAttribute && el.getAttribute('data-rdpanel')==='1') { el.style.display='none'; return; }
-      var t=el.textContent||'';
-      if(t.length>0 && t.length<500 && /Autres pages/i.test(t) && /Le cabinet|Journal|404/i.test(t)){
-        el.setAttribute&&el.setAttribute('data-rdpanel','1'); el.style.display='none';
-      }
-    });
+    bar.appendChild(mid);
+    // bouton Contact
+    var ct=document.createElement('a'); ct.href=BASE+'/contact/'; ct.textContent='Contact'; ct.addEventListener('click',go(BASE+'/contact/'));
+    ct.style.cssText='background:#d0fc6d;color:#0b1e17;font-size:16px;font-weight:600;text-decoration:none;'
+      +'padding:11px 24px;border-radius:999px;white-space:nowrap;flex:0 0 auto;cursor:pointer';
+    bar.appendChild(ct);
+    document.body.appendChild(bar);
   }
 
   // ---------- 2) TRADUCTEUR RUNTIME ----------
@@ -159,7 +162,7 @@
     });
   }
 
-  function apply(){ injectCSS(); fixNavInPlace(); translateContent(); fixServiceCards(); cleanFooter(); }
+  function apply(){ injectCSS(); buildNavbar(); translateContent(); fixServiceCards(); cleanFooter(); }
   var t=null; function schedule(){ if(t) return; t=setTimeout(function(){t=null;apply();},150); }
   function boot(){
     apply(); [200,500,1000,2000,3500,5000,8000].forEach(function(ms){setTimeout(apply,ms);});
