@@ -32,38 +32,50 @@
   // On masque l'en-tête Framer d'origine et on injecte NOTRE barre dans <body>
   // (hors racine React => jamais supprimée). URLs en « / » (routes Framer, pas index.html).
   var LOGO=BASE+"/assets/framer/images/748Yvl23yjwdTa9ptR8Op9Z7c.svg";
-  var LINKS=[['Accueil',BASE+'/'],['À propos',BASE+'/about/'],['Soins',BASE+'/service/'],['Équipe',BASE+'/doctors/']];
+  // routes Framer (SANS slash final, SANS index.html)
+  var LINKS=[['Accueil','/'],['À propos','/about'],['Soins','/service'],['Équipe','/doctors']];
   function hideOriginalHeader(){
     if(document.getElementById('rd-hidehead')) return;
     var st=document.createElement('style'); st.id='rd-hidehead';
     st.textContent='header,[data-framer-name="Header"]{display:none !important}';
     (document.head||document.documentElement).appendChild(st);
   }
-  function go(href){ return function(e){ e.preventDefault(); e.stopPropagation(); window.location.assign(href); }; }
+  // navigation SPA interne : on met à jour l'historique + on notifie le routeur Framer
+  // (évite le rechargement + la redirection GitHub qui ajoute un / final => plus de 404)
+  function navTo(path){
+    var url=BASE+path;
+    try{
+      history.pushState({}, '', url);
+      window.dispatchEvent(new PopStateEvent('popstate',{state:{}}));
+    }catch(err){ window.location.assign(url); }
+  }
+  function go(path){ return function(e){ e.preventDefault(); e.stopPropagation(); navTo(path); }; }
   function buildNavbar(){
     hideOriginalHeader();
     if(document.getElementById('rd-navbar')) return;
     var bar=document.createElement('div'); bar.id='rd-navbar';
     bar.style.cssText='position:fixed;top:0;left:0;width:100%;z-index:2147483000;display:flex;'
-      +'align-items:center;justify-content:space-between;gap:20px;padding:14px 5%;box-sizing:border-box;'
-      +'background:rgba(11,30,23,.9);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);'
+      +'align-items:center;justify-content:space-between;gap:20px;padding:16px 5%;box-sizing:border-box;'
+      +'background:transparent;'
       +"font-family:'Figtree','Inter',system-ui,sans-serif;";
-    // logo
-    var lg=document.createElement('a'); lg.href=LINKS[0][1]; lg.addEventListener('click',go(LINKS[0][1]));
-    lg.style.cssText='display:flex;align-items:center;flex:0 0 auto';
+    // logo (rendu blanc)
+    var lg=document.createElement('a'); lg.href=BASE+'/'; lg.addEventListener('click',go('/'));
+    lg.style.cssText='display:flex;align-items:center;flex:0 0 auto;cursor:pointer';
     var img=document.createElement('img'); img.src=LOGO; img.alt='RedDent';
-    img.style.cssText='height:34px;width:auto;display:block'; lg.appendChild(img); bar.appendChild(lg);
+    img.style.cssText='height:34px;width:auto;display:block;filter:brightness(0) invert(1)';
+    lg.appendChild(img); bar.appendChild(lg);
     // liens
     var mid=document.createElement('div');
     mid.style.cssText='display:flex;flex-direction:row;align-items:center;gap:34px;flex-wrap:nowrap';
     LINKS.forEach(function(p){
-      var a=document.createElement('a'); a.href=p[1]; a.textContent=p[0]; a.addEventListener('click',go(p[1]));
-      a.style.cssText='color:#fff;font-size:16px;font-weight:500;text-decoration:none;white-space:nowrap;cursor:pointer';
+      var a=document.createElement('a'); a.href=BASE+p[1]; a.textContent=p[0]; a.addEventListener('click',go(p[1]));
+      a.style.cssText='color:#fff;font-size:16px;font-weight:500;text-decoration:none;white-space:nowrap;cursor:pointer;'
+        +'text-shadow:0 1px 3px rgba(0,0,0,.35)';
       mid.appendChild(a);
     });
     bar.appendChild(mid);
     // bouton Contact
-    var ct=document.createElement('a'); ct.href=BASE+'/contact/'; ct.textContent='Contact'; ct.addEventListener('click',go(BASE+'/contact/'));
+    var ct=document.createElement('a'); ct.href=BASE+'/contact'; ct.textContent='Contact'; ct.addEventListener('click',go('/contact'));
     ct.style.cssText='background:#d0fc6d;color:#0b1e17;font-size:16px;font-weight:600;text-decoration:none;'
       +'padding:11px 24px;border-radius:999px;white-space:nowrap;flex:0 0 auto;cursor:pointer';
     bar.appendChild(ct);
