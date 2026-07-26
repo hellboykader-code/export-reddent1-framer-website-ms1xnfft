@@ -34,20 +34,29 @@
   var LOGO=BASE+"/assets/framer/images/748Yvl23yjwdTa9ptR8Op9Z7c.svg";
   // routes Framer (SANS slash final, SANS index.html)
   var LINKS=[['Accueil','/'],['À propos','/about'],['Soins','/service'],['Équipe','/doctors']];
+  // On garde l'en-tête Framer dans le DOM (hors écran) pour réutiliser SES liens
+  // (le routeur Framer refuse un popstate d'état vide => on clique SON lien).
   function hideOriginalHeader(){
     if(document.getElementById('rd-hidehead')) return;
     var st=document.createElement('style'); st.id='rd-hidehead';
-    st.textContent='header,[data-framer-name="Header"]{display:none !important}';
+    st.textContent='header,[data-framer-name="Header"]{position:fixed !important;top:-300px !important;left:0 !important;opacity:0 !important;pointer-events:none !important;height:0 !important;overflow:hidden !important;z-index:-1 !important}';
     (document.head||document.documentElement).appendChild(st);
   }
-  // navigation SPA interne : on met à jour l'historique + on notifie le routeur Framer
-  // (évite le rechargement + la redirection GitHub qui ajoute un / final => plus de 404)
+  // trouve le lien Framer d'origine correspondant à la route (nav SPA native)
+  function findFramerLink(route){
+    var want=(BASE+route).replace(/\/index\.html$/,'').replace(/\/$/,'')||BASE;
+    var links=document.querySelectorAll('a[href]');
+    for(var i=0;i<links.length;i++){
+      var a=links[i]; if(a.closest('#rd-navbar')) continue;
+      var p; try{ p=new URL(a.href,location.origin).pathname.replace(/\/index\.html$/,'').replace(/\/$/,'')||BASE; }catch(e){ continue; }
+      if(p===want) return a;
+    }
+    return null;
+  }
   function navTo(path){
-    var url=BASE+path;
-    try{
-      history.pushState({}, '', url);
-      window.dispatchEvent(new PopStateEvent('popstate',{state:{}}));
-    }catch(err){ window.location.assign(url); }
+    var link=findFramerLink(path);
+    if(link){ link.click(); return; }               // nav native Framer (fiable)
+    window.location.assign(BASE+path.replace(/\/$/,'')); // secours
   }
   function go(path){ return function(e){ e.preventDefault(); e.stopPropagation(); navTo(path); }; }
   function buildNavbar(){
@@ -56,7 +65,7 @@
     var bar=document.createElement('div'); bar.id='rd-navbar';
     bar.style.cssText='position:fixed;top:0;left:0;width:100%;z-index:2147483000;display:flex;'
       +'align-items:center;justify-content:space-between;gap:20px;padding:16px 5%;box-sizing:border-box;'
-      +'background:transparent;'
+      +'background:rgba(11,30,23,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);'
       +"font-family:'Figtree','Inter',system-ui,sans-serif;";
     // logo (rendu blanc)
     var lg=document.createElement('a'); lg.href=BASE+'/'; lg.addEventListener('click',go('/'));
@@ -112,8 +121,17 @@
     "Chief Dental Officer":"Chirurgien-dentiste en chef","Dental Practice Director":"Directeur du cabinet dentaire",
     "Lead Dentist":"Dentiste référent","Simple online scheduling":"Réservation en ligne simple",
     "General":"Général","Dental":"Dentaire","injury":"Urgence dentaire",
-    "Write your message":"Votre message"
+    "Write your message":"Votre message","Doctor":"Nos praticiens","Our Services":"Nos soins"
   };
+  // Footer : traduire les libellés de nav + masquer News/Blogs (le .mjs réinjecte l'anglais)
+  function fixFooter(){
+    var M={'Home':'Accueil','About':'À propos','Service':'Soins','Services':'Soins','Doctors':'Équipe','Doctor':'Équipe','Contact Us':'Contact'};
+    document.querySelectorAll('footer a, [data-framer-name*="Footer"] a').forEach(function(a){
+      var t=norm(a.textContent); var h=a.getAttribute('href')||'';
+      if(t==='News'||t==='Blogs'||t==='Blog'||t==='Journal'||/\/blog/.test(h)){ (a.closest('li')||a).style.display='none'; a.style.display='none'; return; }
+      if(M[t]) setText(a,M[t]);
+    });
+  }
   function translateContent(){
     document.querySelectorAll('h1,h2,h3,h4,h5,p,span,a,button,li,option').forEach(function(el){
       if(el.getAttribute('data-frtr')==='1') return;
@@ -174,7 +192,7 @@
     });
   }
 
-  function apply(){ injectCSS(); buildNavbar(); translateContent(); fixServiceCards(); cleanFooter(); }
+  function apply(){ injectCSS(); buildNavbar(); translateContent(); fixServiceCards(); fixFooter(); cleanFooter(); }
   var t=null; function schedule(){ if(t) return; t=setTimeout(function(){t=null;apply();},150); }
   function boot(){
     apply(); [200,500,1000,2000,3500,5000,8000].forEach(function(ms){setTimeout(apply,ms);});
