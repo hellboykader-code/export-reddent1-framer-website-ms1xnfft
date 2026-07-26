@@ -27,12 +27,14 @@
   }
   // --- NAV + FOOTER : libellés FR (route inchangée), masquer News/Blogs ---
   var NAV={ 'Home':'Accueil','About':'À propos','Service':'Soins','Services':'Soins',
-            'Doctors':'Équipe','Doctor':'Équipe' };
+            'Doctors':'Équipe','Doctor':'Équipe','Contact Us':'Contact','All Pages':'Nos pages',
+            'Demo Pages':'Nos pages','Inner Pages':'Le cabinet','Other Pages':'Autres pages',
+            'Service Details (CMS)':'Nos soins','Doctor Details (CMS)':'Notre équipe' };
   function fixNav(){
-    document.querySelectorAll('nav a, header a, footer a, [data-framer-name*="Nav"] a, [data-framer-name*="Menu"] a, [data-framer-name*="Footer"] a').forEach(function(a){
+    document.querySelectorAll('nav a, header a, footer a, [data-framer-name*="Nav"] a, [data-framer-name*="Menu"] a, [data-framer-name*="Footer"] a, [data-framer-name*="Nav"] p, [data-framer-name*="Menu"] p').forEach(function(a){
       var t=(a.textContent||'').replace(/\s+/g,' ').trim();
       var h=a.getAttribute('href')||'';
-      if(t==='News'||t==='Blogs'||t==='Blog'||/\/blog/.test(h)){ (a.closest('li')||a).style.display='none'; a.style.display='none'; return; }
+      if(t==='News'||t==='Blogs'||t==='Blog'||t==='Blog Details (CMS)'||t==='404'||/\/blog/.test(h)){ (a.closest('li')||a).style.display='none'; a.style.display='none'; return; }
       if(NAV[t]){ setText(a,NAV[t]); }
     });
   }
