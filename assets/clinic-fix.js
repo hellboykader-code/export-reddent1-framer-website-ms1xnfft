@@ -115,14 +115,27 @@
     });
   }
 
-  // ---------- 3) CARTES SOINS : bouton -> Prendre rendez-vous / page Contact ----------
+  // ---------- 3) CARTES SOINS : « En savoir plus » -> « Prendre rendez-vous » / page Contact ----------
+  var CONTACT=BASE+'/contact/index.html';
+  function toRDV(el){
+    setText(el,'Prendre rendez-vous');
+    if(el.tagName==='A') el.setAttribute('href',CONTACT);
+    if(!el.__rdcta){ el.__rdcta=1; el.style.cursor='pointer';
+      el.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); window.location.href=CONTACT; }, true); }
+  }
   function fixServiceCards(){
+    // 1) boutons repérés par TEXTE (le href peut être « void(0) » / « # »)
+    document.querySelectorAll('a,button').forEach(function(el){
+      var kids=[].filter.call(el.children,function(c){return c.tagName!=='SPAN'&&c.tagName!=='SVG'&&c.tagName!=='svg';});
+      if(kids.length>0) return;
+      var t=norm(el.textContent);
+      if(t==='En savoir plus'||t==='Lire la suite'||t==='Read more'||t==='More info'||t==='Discover More'||t==='En savoir plus »'){ toRDV(el); }
+    });
+    // 2) liens directs vers les pages détail supprimées -> Contact
     document.querySelectorAll('a[href*="/service/"]').forEach(function(a){
       var h=a.getAttribute('href')||'';
-      // pages détail : /service/<slug>/ (pas la page liste /service/)
       if(/\/service\/[a-z0-9-]+\/?(index\.html)?($|[?#])/i.test(h) && !/\/service\/?(index\.html)?($|[?#])/i.test(h)){
-        a.setAttribute('href', BASE+'/contact/index.html');
-        if(/savoir plus|lire la suite|read more|more info|discover/i.test(a.textContent)) setText(a,'Prendre rendez-vous');
+        a.setAttribute('href', CONTACT);
       }
     });
   }
