@@ -2,37 +2,31 @@
   {
     "path": "/",
     "title": "RedDent",
-    "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
-    "excerpt": "Top Dentists &amp; Tech"
+    "description": "RedDent est un cabinet dentaire moderne au design épuré et centré sur le patient. Nous mettons en avant nos soins, instaurons la confiance et simplifions la prise de rendez-vous en ligne.",
+    "excerpt": "Des dentistes experts, une technologie de pointe"
   },
   {
     "path": "/about",
     "title": "RedDent",
-    "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
-    "excerpt": "With years of experience and the latest technology, we ensure your smile stays healthy and beautiful"
-  },
-  {
-    "path": "/blog",
-    "title": "RedDent",
-    "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
-    "excerpt": "Explore our full range of dental care services—from routine checkups and cleanings to advanced cosmetic and restorative treatments, all tailored to your unique smile."
+    "description": "RedDent est un cabinet dentaire moderne au design épuré et centré sur le patient. Nous mettons en avant nos soins, instaurons la confiance et simplifions la prise de rendez-vous en ligne.",
+    "excerpt": "Fort de nombreuses années d’expérience et des dernières technologies, nous veillons à ce que votre sourire reste sain et éclatant."
   },
   {
     "path": "/contact",
     "title": "RedDent",
-    "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+    "description": "RedDent est un cabinet dentaire moderne au design épuré et centré sur le patient. Nous mettons en avant nos soins, instaurons la confiance et simplifions la prise de rendez-vous en ligne.",
     "excerpt": "Have a question for our dental experts? Fill out the form below to get in touch. If you're looking to schedule a specific service, please describe your needs in the message field for a more personaliz"
   },
   {
     "path": "/doctors",
     "title": "RedDent",
-    "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+    "description": "RedDent est un cabinet dentaire moderne au design épuré et centré sur le patient. Nous mettons en avant nos soins, instaurons la confiance et simplifions la prise de rendez-vous en ligne.",
     "excerpt": "Dr. Bruno Fernandes"
   },
   {
     "path": "/service",
     "title": "RedDent",
-    "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
-    "excerpt": "Explore our full range of dental care services—from routine checkups and cleanings to advanced cosmetic and restorative treatments, all tailored to your unique smile."
+    "description": "RedDent est un cabinet dentaire moderne au design épuré et centré sur le patient. Nous mettons en avant nos soins, instaurons la confiance et simplifions la prise de rendez-vous en ligne.",
+    "excerpt": "Découvrez l’ensemble de nos soins dentaires — des contrôles et détartrages de routine aux traitements esthétiques et restaurateurs avancés, tous adaptés à votre sourire unique."
   }
 ]

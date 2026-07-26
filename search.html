@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Site Search</title>
+<title>Recherche sur le site</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fa; color: #1a1a2e; padding: 2rem; }
@@ -20,16 +20,16 @@ input[type="search"]:focus { border-color: #6366f1; }
 .no-results { color: #94a3b8; text-align: center; padding: 2rem 0; }
 .count { font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.75rem; }
 </style>
-</head>
+<script defer src="/export-reddent1-framer-website-ms1xnfft/assets/clinic-fix.js"></script></head>
 <body>
 <div class="search-container">
-<h1>Search</h1>
-<input type="search" id="q" placeholder="Search pages..." autofocus>
+<h1>Rechercher</h1>
+<input type="search" id="q" placeholder="Rechercher pages..." autofocus>
 <div class="results" id="results"></div>
 </div>
 <script>
 (function() {
-var pages = [{"path":"/","title":"RedDent","description":"RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.","excerpt":"Top Dentists &amp; Tech"},{"path":"/about","title":"RedDent","description":"RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.","excerpt":"With years of experience and the latest technology, we ensure your smile stays healthy and beautiful"},{"path":"/blog","title":"RedDent","description":"RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.","excerpt":"Explore our full range of dental care services—from routine checkups and cleanings to advanced cosmetic and restorative treatments, all tailored to your unique smile."},{"path":"/contact","title":"RedDent","description":"RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.","excerpt":"Have a question for our dental experts? Fill out the form below to get in touch. If you're looking to schedule a specific service, please describe your needs in the message field for a more personaliz"},{"path":"/doctors","title":"RedDent","description":"RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.","excerpt":"Dr. Bruno Fernandes"},{"path":"/service","title":"RedDent","description":"RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.","excerpt":"Explore our full range of dental care services—from routine checkups and cleanings to advanced cosmetic and restorative treatments, all tailored to your unique smile."}];
+var pages = [{"path":"/","title":"RedDent","description":"RedDent est un cabinet dentaire moderne au design épuré et centré sur le patient. Nous mettons en avant nos soins, instaurons la confiance et simplifions la prise de rendez-vous en ligne.","excerpt":"Des dentistes experts, une technologie de pointe"},{"path":"/about","title":"RedDent","description":"RedDent est un cabinet dentaire moderne au design épuré et centré sur le patient. Nous mettons en avant nos soins, instaurons la confiance et simplifions la prise de rendez-vous en ligne.","excerpt":"Fort de nombreuses années d’expérience et des dernières technologies, nous veillons à ce que votre sourire reste sain et éclatant."},{"path":"/blog","title":"RedDent","description":"RedDent est un cabinet dentaire moderne au design épuré et centré sur le patient. Nous mettons en avant nos soins, instaurons la confiance et simplifions la prise de rendez-vous en ligne.","excerpt":"Découvrez l’ensemble de nos soins dentaires — des contrôles et détartrages de routine aux traitements esthétiques et restaurateurs avancés, tous adaptés à votre sourire unique."},{"path":"/contact","title":"RedDent","description":"RedDent est un cabinet dentaire moderne au design épuré et centré sur le patient. Nous mettons en avant nos soins, instaurons la confiance et simplifions la prise de rendez-vous en ligne.","excerpt":"Have a question for our dental experts? Fill out the form below to get in touch. If you're looking to schedule a specific service, please describe your needs in the message field for a more personaliz"},{"path":"/doctors","title":"RedDent","description":"RedDent est un cabinet dentaire moderne au design épuré et centré sur le patient. Nous mettons en avant nos soins, instaurons la confiance et simplifions la prise de rendez-vous en ligne.","excerpt":"Dr. Bruno Fernandes"},{"path":"/service","title":"RedDent","description":"RedDent est un cabinet dentaire moderne au design épuré et centré sur le patient. Nous mettons en avant nos soins, instaurons la confiance et simplifions la prise de rendez-vous en ligne.","excerpt":"Découvrez l’ensemble de nos soins dentaires — des contrôles et détartrages de routine aux traitements esthétiques et restaurateurs avancés, tous adaptés à votre sourire unique."}];
 var input = document.getElementById('q');
 var resultsEl = document.getElementById('results');
 
