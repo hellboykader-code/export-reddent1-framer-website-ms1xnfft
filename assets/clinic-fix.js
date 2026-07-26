@@ -54,9 +54,18 @@
     return null;
   }
   function navTo(path){
+    var url=BASE+path;
+    // 1) Navigation API : Framer écoute l'évènement « navigate » (Chrome/Edge) -> SPA natif
+    try{
+      if(window.navigation && typeof window.navigation.navigate==='function'){
+        window.navigation.navigate(url); return;
+      }
+    }catch(e){}
+    // 2) cliquer le lien Framer d'origine correspondant
     var link=findFramerLink(path);
-    if(link){ link.click(); return; }               // nav native Framer (fiable)
-    window.location.assign(BASE+path.replace(/\/$/,'')); // secours
+    if(link){ link.click(); return; }
+    // 3) dernier recours : rechargement complet
+    window.location.assign(url);
   }
   function go(path){ return function(e){ e.preventDefault(); e.stopPropagation(); navTo(path); }; }
   function buildNavbar(){
