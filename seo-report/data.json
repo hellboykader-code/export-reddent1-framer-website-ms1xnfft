@@ -1,0 +1,949 @@
+[
+  {
+    "url": "https://reddent1.framer.website/contact",
+    "score": 76,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Title too short (7 chars). Aim for 50-60 characters."
+      },
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "Multiple <h1> tags found (2). Best practice is to have only one."
+      },
+      {
+        "type": "warning",
+        "message": "9 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "RedDent",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/about",
+    "score": 81,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Title too short (7 chars). Aim for 50-60 characters."
+      },
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "19 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "RedDent",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/service",
+    "score": 81,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Title too short (7 chars). Aim for 50-60 characters."
+      },
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "33 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "RedDent",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/",
+    "score": 83,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Title too short (7 chars). Aim for 50-60 characters."
+      },
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "42 image(s) missing alt text"
+      }
+    ],
+    "passed": [
+      "Single H1 heading present",
+      "Canonical URL is set",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "RedDent",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": "https://reddent1.framer.website/",
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/blog/oral-health-tips-for-children-building-healthy-habits-early",
+    "score": 83,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Title too long (77 chars). May be truncated in search results."
+      },
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "5 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "Oral Health Tips for Children: Building Healthy Habits Early - My Framer Site",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/blog/the-ultimate-guide-to-teeth-whitening-at-home-and-in-the-clinic",
+    "score": 83,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Title too long (80 chars). May be truncated in search results."
+      },
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "5 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "The Ultimate Guide to Teeth Whitening at Home and in the Clinic - My Framer Site",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/blog/tiny-teeth-big-care-early-habits-for-lifelong-oral-health",
+    "score": 83,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Title too long (76 chars). May be truncated in search results."
+      },
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "5 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "Tiny Teeth, Big Care: Early Habits for Lifelong Oral Health - My Framer Site",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/doctors/dr-bruno-fernandes",
+    "score": 83,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Title too short (7 chars). Aim for 50-60 characters."
+      },
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "4 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "RedDent",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/doctors/dr-daria-pimkina",
+    "score": 83,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Title too short (7 chars). Aim for 50-60 characters."
+      },
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "4 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "RedDent",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/doctors/dr-james-anderson",
+    "score": 83,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Title too short (7 chars). Aim for 50-60 characters."
+      },
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "4 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "RedDent",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/doctors/dr-juliana-craft",
+    "score": 83,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Title too short (7 chars). Aim for 50-60 characters."
+      },
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "4 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "RedDent",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/doctors/dr-maria-craft",
+    "score": 83,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Title too short (7 chars). Aim for 50-60 characters."
+      },
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "4 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "RedDent",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/doctors/dr-maria-fernando",
+    "score": 83,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Title too short (7 chars). Aim for 50-60 characters."
+      },
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "4 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "RedDent",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/doctors/kane-williamson",
+    "score": 83,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Title too short (7 chars). Aim for 50-60 characters."
+      },
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "4 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "RedDent",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/blog",
+    "score": 85,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Title too short (7 chars). Aim for 50-60 characters."
+      },
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "3 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "RedDent",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/doctors",
+    "score": 85,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Title too short (7 chars). Aim for 50-60 characters."
+      },
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "3 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "RedDent",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/blog/10-dental-care-tips-for-a-healthier-brighter-smile",
+    "score": 86,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "5 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Title tag is properly configured",
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "10 Dental Care Tips for a Healthier, Brighter Smile - My Framer Site",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/blog/5-signs-you-may-need-a-root-canal-treatment",
+    "score": 86,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "5 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Title tag is properly configured",
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "5 Signs You May Need a Root Canal Treatment - My Framer Site",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/blog/braces-vs-invisalign-which-one-is-right-for-you",
+    "score": 86,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "5 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Title tag is properly configured",
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "Braces vs. Invisalign: Which One Is Right for You? - My Framer Site",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/blog/bright-smiles-ahead-kids-dental-care-made-simple",
+    "score": 86,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "5 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Title tag is properly configured",
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "Bright Smiles Ahead: Kids’ Dental Care Made Simple - My Framer Site",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/blog/how-to-prevent-cavities-and-keep-your-teeth-strong",
+    "score": 86,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "5 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Title tag is properly configured",
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "How to Prevent Cavities and Keep Your Teeth Strong - My Framer Site",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/blog/why-gum-health-matters-more-than-you-think",
+    "score": 86,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "5 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Title tag is properly configured",
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "Why Gum Health Matters More Than You Think - My Framer Site",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/service/cosmetic-dentistry",
+    "score": 88,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "4 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Title tag is properly configured",
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "Cosmetic Dentistry - My Framer Site",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/service/emergency-dentistry",
+    "score": 88,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "4 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Title tag is properly configured",
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "Emergency Dentistry - My Framer Site",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/service/orthodontics-care",
+    "score": 88,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "4 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Title tag is properly configured",
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "Orthodontics Care - My Framer Site",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/service/pediatric-dentistry",
+    "score": 88,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "4 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Title tag is properly configured",
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "Pediatric Dentistry - My Framer Site",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/service/periodontal-care",
+    "score": 88,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "4 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Title tag is properly configured",
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "Periodontal Care - My Framer Site",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/service/preventive-dentistry",
+    "score": 88,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "4 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Title tag is properly configured",
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "Preventive Dentistry - My Framer Site",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  },
+  {
+    "url": "https://reddent1.framer.website/service/restorative-dentistry",
+    "score": 88,
+    "issues": [
+      {
+        "type": "warning",
+        "message": "Meta description too long (222 chars). May be truncated."
+      },
+      {
+        "type": "warning",
+        "message": "4 image(s) missing alt text"
+      },
+      {
+        "type": "info",
+        "message": "No canonical URL specified"
+      }
+    ],
+    "passed": [
+      "Title tag is properly configured",
+      "Single H1 heading present",
+      "Open Graph meta tags present",
+      "Viewport meta tag present",
+      "Language attribute set"
+    ],
+    "meta": {
+      "title": "Restorative Dentistry - My Framer Site",
+      "description": "RedDent is a professional website template crafted for dental clinics and dentists. With a clean, modern design and patient-focused features, it helps showcase treatments, build trust, and make booking appointments simple.",
+      "canonical": null,
+      "ogImage": "https://framerusercontent.com/images/6ztwPNjmRkCkGZxdJejJlwa1ZZ8.png"
+    }
+  }
+]
