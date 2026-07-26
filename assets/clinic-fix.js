@@ -28,40 +28,43 @@
   }
   function norm(s){ return (s||'').replace(/\s+/g,' ').trim(); }
 
-  // ---------- 1) NAV custom : Accueil · À propos · Soins · Équipe ----------
-  var NAVSET={'Accueil':1,'À propos':1,'Nos pages':1,'All Pages':1,'Blog':1,'Journal':1,'404':1,'News':1,'Blogs':1};
-  function headerLinks(){
-    return [].slice.call(document.querySelectorAll('header a, nav a, [data-framer-name*="Nav"] a, [data-framer-name*="Menu"] a, [data-framer-name*="Header"] a'));
+  // ---------- 1) NAV en place (pas d'injection => stable) ----------
+  // Objectif : Accueil · À propos · Soins · Équipe (+ bouton Contact).
+  // On modifie les éléments existants : « Nos pages » -> Soins, « Blog » -> Équipe.
+  function headerScope(){ return document.querySelector('header')||document.querySelector('[data-framer-name*="Nav"]')||document.querySelector('[data-framer-name*="Header"]')||document.body; }
+  function navCandidates(){
+    var h=headerScope();
+    return [].slice.call(h.querySelectorAll('a,button,div,p,span')).filter(function(el){
+      var kids=[].filter.call(el.children,function(c){return c.tagName!=='SPAN'&&c.tagName!=='SVG'&&c.tagName!=='svg';});
+      return kids.length===0;
+    });
   }
-  function commonAncestor(a,b){ var p=a; while(p && !p.contains(b)) p=p.parentElement; return p; }
-  function buildNav(){
-    var links=headerLinks();
-    var items=links.filter(function(a){ return NAVSET[norm(a.textContent)]!==undefined; });
-    if(items.length<2) return;
-    var row=commonAncestor(items[0], items[items.length-1]);
-    if(!row) return;
-    // masquer chaque item d'origine (son enfant direct de row) — jamais le logo ni le bouton Contact
-    var firstChild=null;
-    items.forEach(function(a){
-      var c=a; while(c.parentElement && c.parentElement!==row) c=c.parentElement;
-      if(c.parentElement===row){ if(!firstChild) firstChild=c; c.style.display='none'; }
+  function killChevrons(el){ el.querySelectorAll('svg').forEach(function(s){ s.style.display='none'; }); }
+  function toLink(el,label,href){
+    setText(el,label);
+    killChevrons(el);
+    if(el.tagName==='A'){ el.setAttribute('href',href); }
+    if(!el.__rdnav){ el.__rdnav=1;
+      el.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); window.location.href=href; }, true);
+      el.style.cursor='pointer';
+    }
+  }
+  function fixNavInPlace(){
+    navCandidates().forEach(function(el){
+      var t=norm(el.textContent);
+      if(t==='Nos pages'||t==='All Pages'){ toLink(el,'Soins',BASE+'/service/index.html'); }
+      else if(t==='Blog'){ toLink(el,'Équipe',BASE+'/doctors/index.html'); }
+      else if(t==='Journal'||t==='404'||t==='News'||t==='Blogs'){ (el.closest('li')||el).style.display='none'; el.style.display='none'; }
+      else if(t==='Contact Us'){ setText(el,'Contact'); }
     });
-    // masquer le panneau déroulant « Nos pages » (contient « Autres pages »)
-    document.querySelectorAll('div,section,nav').forEach(function(el){
-      var t=el.textContent||''; if(t.length<400 && /Autres pages|Le cabinet[\s\S]*Journal/i.test(t)){ el.style.display='none'; }
+    // masquer le panneau déroulant (overlay) « Nos pages » : contient « Autres pages » / « Le cabinet »
+    document.querySelectorAll('div,section,nav,ul').forEach(function(el){
+      if(el.getAttribute && el.getAttribute('data-rdpanel')==='1') { el.style.display='none'; return; }
+      var t=el.textContent||'';
+      if(t.length>0 && t.length<500 && /Autres pages/i.test(t) && /Le cabinet|Journal|404/i.test(t)){
+        el.setAttribute&&el.setAttribute('data-rdpanel','1'); el.style.display='none';
+      }
     });
-    if(row.querySelector('#rd-nav')) return;
-    var ref=items[0], cs=window.getComputedStyle(ref);
-    var nav=document.createElement('div'); nav.id='rd-nav';
-    nav.style.cssText='display:flex;flex-direction:row;gap:30px;align-items:center';
-    [['Accueil',BASE+'/index.html'],['À propos',BASE+'/about/index.html'],
-     ['Soins',BASE+'/service/index.html'],['Équipe',BASE+'/doctors/index.html']].forEach(function(p){
-      var a=document.createElement('a'); a.href=p[1]; a.textContent=p[0];
-      a.style.cssText='color:'+cs.color+';font-family:'+cs.fontFamily+';font-size:'+cs.fontSize
-        +';font-weight:'+cs.fontWeight+';letter-spacing:'+cs.letterSpacing+';text-decoration:none;white-space:nowrap';
-      nav.appendChild(a);
-    });
-    if(firstChild) row.insertBefore(nav, firstChild); else row.appendChild(nav);
   }
 
   // ---------- 2) TRADUCTEUR RUNTIME ----------
@@ -143,7 +146,7 @@
     });
   }
 
-  function apply(){ injectCSS(); buildNav(); translateContent(); fixServiceCards(); cleanFooter(); }
+  function apply(){ injectCSS(); fixNavInPlace(); translateContent(); fixServiceCards(); cleanFooter(); }
   var t=null; function schedule(){ if(t) return; t=setTimeout(function(){t=null;apply();},150); }
   function boot(){
     apply(); [200,500,1000,2000,3500,5000,8000].forEach(function(ms){setTimeout(apply,ms);});
