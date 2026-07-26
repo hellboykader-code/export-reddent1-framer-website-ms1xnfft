@@ -42,6 +42,20 @@
     st.textContent='header,[data-framer-name="Header"]{display:none !important}';
     (document.head||document.documentElement).appendChild(st);
   }
+  // ⭐ Framer traite TOUS les <a> internes (href -> « javascript:void(0) ») et peut
+  // remplacer le nœud => nos handlers sautent. Donc on n'utilise PAS de <a> : nos
+  // boutons sont des <div>/<span> (Framer ne les touche pas), avec un handler de clic
+  // qui fait une navigation complète vers /route/ (que le routeur Framer résout).
+  function navItem(tag,label,url){
+    var el=document.createElement(tag);
+    if(label!=null) el.textContent=label;
+    el.setAttribute('role','link'); el.setAttribute('tabindex','0');
+    var goFn=function(e){ if(e){e.preventDefault(); e.stopPropagation();} window.location.assign(url); };
+    el.addEventListener('click',goFn);
+    el.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' ') goFn(e); });
+    el.style.cursor='pointer';
+    return el;
+  }
   function buildNavbar(){
     hideOriginalHeader();
     if(document.getElementById('rd-navbar')) return;
@@ -50,25 +64,25 @@
       +'align-items:center;justify-content:space-between;gap:20px;padding:16px 5%;box-sizing:border-box;'
       +'background:rgba(11,30,23,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);'
       +"font-family:'Figtree','Inter',system-ui,sans-serif;";
-    // logo (rendu blanc)
-    var lg=document.createElement('a'); lg.href=BASE+'/';
+    // logo (rendu blanc) — <div> cliquable, pas un <a>
+    var lg=navItem('div',null,BASE+'/');
     lg.style.cssText='display:flex;align-items:center;flex:0 0 auto;cursor:pointer';
     var img=document.createElement('img'); img.src=LOGO; img.alt='RedDent';
-    img.style.cssText='height:34px;width:auto;display:block;filter:brightness(0) invert(1)';
+    img.style.cssText='height:34px;width:auto;display:block;filter:brightness(0) invert(1);pointer-events:none';
     lg.appendChild(img); bar.appendChild(lg);
-    // liens : simples <a href> (navigation complète, aucune interception JS)
+    // liens
     var mid=document.createElement('div');
     mid.style.cssText='display:flex;flex-direction:row;align-items:center;gap:34px;flex-wrap:nowrap';
     LINKS.forEach(function(p){
-      var a=document.createElement('a'); a.href=p[1]; a.textContent=p[0];
-      a.style.cssText='color:#fff;font-size:16px;font-weight:500;text-decoration:none;white-space:nowrap;cursor:pointer;'
+      var a=navItem('div',p[0],p[1]);
+      a.style.cssText='color:#fff;font-size:16px;font-weight:500;white-space:nowrap;cursor:pointer;'
         +'text-shadow:0 1px 3px rgba(0,0,0,.35)';
       mid.appendChild(a);
     });
     bar.appendChild(mid);
     // bouton Contact
-    var ct=document.createElement('a'); ct.href=BASE+'/contact/'; ct.textContent='Contact';
-    ct.style.cssText='background:#d0fc6d;color:#0b1e17;font-size:16px;font-weight:600;text-decoration:none;'
+    var ct=navItem('div','Contact',BASE+'/contact/');
+    ct.style.cssText='background:#d0fc6d;color:#0b1e17;font-size:16px;font-weight:600;'
       +'padding:11px 24px;border-radius:999px;white-space:nowrap;flex:0 0 auto;cursor:pointer';
     bar.appendChild(ct);
     document.body.appendChild(bar);
