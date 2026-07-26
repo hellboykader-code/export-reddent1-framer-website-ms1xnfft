@@ -48,7 +48,9 @@
     navLinks().forEach(function(a){ if(norm(a.textContent)==='À propos') about=a; });
     if(!about) return;
     var host=about.parentElement; if(!host) return;
-    var want=[['Soins',BASE+'/service/index.html'],['Équipe',BASE+'/doctors/index.html'],['Contact',BASE+'/contact/index.html']];
+    // On remplace « Nos pages » + « Blog » (masqués) par 2 liens -> même densité, une seule ligne.
+    // « Contact » existe déjà en bouton à droite (5e page).
+    var want=[['Soins',BASE+'/service/index.html'],['Équipe',BASE+'/doctors/index.html']];
     var have={}; navLinks().forEach(function(a){ have[norm(a.textContent)]=true; });
     var after=about;
     want.forEach(function(p){
