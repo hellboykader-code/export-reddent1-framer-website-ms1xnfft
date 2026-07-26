@@ -32,42 +32,16 @@
   // On masque l'en-tête Framer d'origine et on injecte NOTRE barre dans <body>
   // (hors racine React => jamais supprimée). URLs en « / » (routes Framer, pas index.html).
   var LOGO=BASE+"/assets/framer/images/748Yvl23yjwdTa9ptR8Op9Z7c.svg";
-  // routes Framer (SANS slash final, SANS index.html)
-  var LINKS=[['Accueil','/'],['À propos','/about'],['Soins','/service'],['Équipe','/doctors']];
-  // On garde l'en-tête Framer dans le DOM (hors écran) pour réutiliser SES liens
-  // (le routeur Framer refuse un popstate d'état vide => on clique SON lien).
+  // URLs en RÉPERTOIRE avec « / » final (SANS index.html) : Framer normalise le slash
+  // final (Ei: path.replace(/^\/|\/$/,'')) => la route matche. Simple lien <a> = navigation
+  // complète fiable (c'est ainsi que fonctionnent les liens profonds d'un export statique).
+  var LINKS=[['Accueil',BASE+'/'],['À propos',BASE+'/about/'],['Soins',BASE+'/service/'],['Équipe',BASE+'/doctors/']];
   function hideOriginalHeader(){
     if(document.getElementById('rd-hidehead')) return;
     var st=document.createElement('style'); st.id='rd-hidehead';
-    st.textContent='header,[data-framer-name="Header"]{position:fixed !important;top:-300px !important;left:0 !important;opacity:0 !important;pointer-events:none !important;height:0 !important;overflow:hidden !important;z-index:-1 !important}';
+    st.textContent='header,[data-framer-name="Header"]{display:none !important}';
     (document.head||document.documentElement).appendChild(st);
   }
-  // trouve le lien Framer d'origine correspondant à la route (nav SPA native)
-  function findFramerLink(route){
-    var want=(BASE+route).replace(/\/index\.html$/,'').replace(/\/$/,'')||BASE;
-    var links=document.querySelectorAll('a[href]');
-    for(var i=0;i<links.length;i++){
-      var a=links[i]; if(a.closest('#rd-navbar')) continue;
-      var p; try{ p=new URL(a.href,location.origin).pathname.replace(/\/index\.html$/,'').replace(/\/$/,'')||BASE; }catch(e){ continue; }
-      if(p===want) return a;
-    }
-    return null;
-  }
-  function navTo(path){
-    var url=BASE+path;
-    // 1) Navigation API : Framer écoute l'évènement « navigate » (Chrome/Edge) -> SPA natif
-    try{
-      if(window.navigation && typeof window.navigation.navigate==='function'){
-        window.navigation.navigate(url); return;
-      }
-    }catch(e){}
-    // 2) cliquer le lien Framer d'origine correspondant
-    var link=findFramerLink(path);
-    if(link){ link.click(); return; }
-    // 3) dernier recours : rechargement complet
-    window.location.assign(url);
-  }
-  function go(path){ return function(e){ e.preventDefault(); e.stopPropagation(); navTo(path); }; }
   function buildNavbar(){
     hideOriginalHeader();
     if(document.getElementById('rd-navbar')) return;
@@ -77,23 +51,23 @@
       +'background:rgba(11,30,23,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);'
       +"font-family:'Figtree','Inter',system-ui,sans-serif;";
     // logo (rendu blanc)
-    var lg=document.createElement('a'); lg.href=BASE+'/'; lg.addEventListener('click',go('/'));
+    var lg=document.createElement('a'); lg.href=BASE+'/';
     lg.style.cssText='display:flex;align-items:center;flex:0 0 auto;cursor:pointer';
     var img=document.createElement('img'); img.src=LOGO; img.alt='RedDent';
     img.style.cssText='height:34px;width:auto;display:block;filter:brightness(0) invert(1)';
     lg.appendChild(img); bar.appendChild(lg);
-    // liens
+    // liens : simples <a href> (navigation complète, aucune interception JS)
     var mid=document.createElement('div');
     mid.style.cssText='display:flex;flex-direction:row;align-items:center;gap:34px;flex-wrap:nowrap';
     LINKS.forEach(function(p){
-      var a=document.createElement('a'); a.href=BASE+p[1]; a.textContent=p[0]; a.addEventListener('click',go(p[1]));
+      var a=document.createElement('a'); a.href=p[1]; a.textContent=p[0];
       a.style.cssText='color:#fff;font-size:16px;font-weight:500;text-decoration:none;white-space:nowrap;cursor:pointer;'
         +'text-shadow:0 1px 3px rgba(0,0,0,.35)';
       mid.appendChild(a);
     });
     bar.appendChild(mid);
     // bouton Contact
-    var ct=document.createElement('a'); ct.href=BASE+'/contact'; ct.textContent='Contact'; ct.addEventListener('click',go('/contact'));
+    var ct=document.createElement('a'); ct.href=BASE+'/contact/'; ct.textContent='Contact';
     ct.style.cssText='background:#d0fc6d;color:#0b1e17;font-size:16px;font-weight:600;text-decoration:none;'
       +'padding:11px 24px;border-radius:999px;white-space:nowrap;flex:0 0 auto;cursor:pointer';
     bar.appendChild(ct);
@@ -158,7 +132,7 @@
   }
 
   // ---------- 3) CARTES SOINS : « En savoir plus » -> « Prendre rendez-vous » / page Contact ----------
-  var CONTACT=BASE+'/contact/index.html';
+  var CONTACT=BASE+'/contact/';
   function toRDV(el){
     setText(el,'Prendre rendez-vous');
     if(el.tagName==='A') el.setAttribute('href',CONTACT);
