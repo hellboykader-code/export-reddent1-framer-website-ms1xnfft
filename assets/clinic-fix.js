@@ -289,7 +289,62 @@
   }
   if(!window.__rdClick){ window.__rdClick=1; document.addEventListener('click',onDocClick,true); }
 
-  function apply(){ injectCSS(); buildNavbar(); translateContent(); fixServiceCards(); fixFooter(); cleanFooter(); }
+  // ⭐ SOLUTION DÉFINITIVE — couche de liens TRANSPARENTS au-dessus de chaque bouton.
+  // Comme la barre de nav (éléments dans <body>, HORS React) : de vrais <a> qui font une
+  // navigation native. Framer ne peut pas les toucher (il ne gère que #main). Immunisé.
+  var OVL=[]; var layer=null;
+  function ensureLayer(){
+    if(layer&&document.body.contains(layer)) return;
+    layer=document.createElement('div'); layer.id='rd-ovl-layer';
+    layer.style.cssText='position:fixed;top:0;left:0;width:0;height:0;z-index:2147482500;pointer-events:none';
+    document.body.appendChild(layer);
+  }
+  function ctaTargets(){
+    var out=[];
+    document.querySelectorAll('a,button,[role="link"],[role="button"]').forEach(function(el){
+      if(el.closest('#rd-navbar')||el.closest('#rd-ovl-layer')||el.closest('form')) return;
+      var r=el.getBoundingClientRect(); if(r.width<4||r.height<4) return;         // invisible/masqué
+      var dest=destFor(el); if(!dest) return;
+      out.push({el:el,dest:dest});
+    });
+    return out;
+  }
+  function syncOverlays(){
+    ensureLayer();
+    var tg=ctaTargets();
+    // ajuster la taille du pool
+    while(OVL.length<tg.length){
+      // ⚠️ PAS de <a> : Framer réécrit TOUT href du document en void(0), même hors #main.
+      // On utilise un <div> + location.assign (exactement comme la barre de nav qui marche).
+      var d=document.createElement('div');
+      d.className='rd-cta-ovl';
+      d.style.cssText='position:fixed;display:block;background:transparent;cursor:pointer;pointer-events:auto;';
+      d.addEventListener('click',function(e){
+        e.preventDefault(); e.stopPropagation();
+        var dest=this.getAttribute('data-dest')||'';
+        if(dest==='#soins'){ gotoSoins(e); return; }
+        window.location.assign(dest);
+      });
+      layer.appendChild(d); OVL.push(d);
+    }
+    for(var i=OVL.length-1;i>=tg.length;i--){ OVL[i].remove(); OVL.splice(i,1); }
+    // positionner + cibler
+    for(var j=0;j<tg.length;j++){
+      var o=OVL[j], t=tg[j], r=t.el.getBoundingClientRect();
+      o.setAttribute('data-dest',t.dest);
+      o.style.left=r.left+'px'; o.style.top=r.top+'px'; o.style.width=r.width+'px'; o.style.height=r.height+'px';
+      o.style.display='block';
+    }
+  }
+  var raf=null;
+  function scheduleSync(){ if(raf) return; raf=requestAnimationFrame(function(){ raf=null; try{syncOverlays();}catch(e){} }); }
+  if(!window.__rdOvl){ window.__rdOvl=1;
+    window.addEventListener('scroll',scheduleSync,true);
+    window.addEventListener('resize',scheduleSync,true);
+    setInterval(scheduleSync,700);
+  }
+
+  function apply(){ injectCSS(); buildNavbar(); translateContent(); fixServiceCards(); fixFooter(); cleanFooter(); syncOverlays(); }
   var t=null; function schedule(){ if(t) return; t=setTimeout(function(){t=null;apply();},150); }
   function boot(){
     apply(); [200,500,1000,2000,3500,5000,8000].forEach(function(ms){setTimeout(apply,ms);});
