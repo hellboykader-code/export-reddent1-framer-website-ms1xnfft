@@ -62,7 +62,7 @@
     var bar=document.createElement('div'); bar.id='rd-navbar';
     bar.style.cssText='position:fixed;top:0;left:0;width:100%;z-index:2147483000;display:flex;'
       +'align-items:center;justify-content:space-between;gap:20px;padding:16px 5%;box-sizing:border-box;'
-      +'background:rgba(11,30,23,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);'
+      +'background:transparent;'
       +"font-family:'Figtree','Inter',system-ui,sans-serif;";
     // logo (rendu blanc) — <div> cliquable, pas un <a>
     var lg=navItem('div',null,BASE+'/');
