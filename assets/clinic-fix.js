@@ -35,7 +35,20 @@
   // URLs en RÉPERTOIRE avec « / » final (SANS index.html) : Framer normalise le slash
   // final (Ei: path.replace(/^\/|\/$/,'')) => la route matche. Simple lien <a> = navigation
   // complète fiable (c'est ainsi que fonctionnent les liens profonds d'un export statique).
-  var LINKS=[['Accueil',BASE+'/'],['À propos',BASE+'/about/'],['Soins',BASE+'/service/'],['Équipe',BASE+'/doctors/']];
+  // « Soins » n'est PLUS une page : c'est un scroll vers la section Soins de l'accueil.
+  var LINKS=[['Accueil',BASE+'/'],['À propos',BASE+'/about/'],['Soins','#soins'],['Équipe',BASE+'/doctors/']];
+  var SOINS_SEL='[data-framer-name="Service Section"]';
+  function onHome(){ var p=(location.pathname||'').replace(/\/+$/,''); return p===BASE||p===''||p===BASE+'/index.html'; }
+  function scrollSoins(){
+    var s=document.querySelector(SOINS_SEL); if(!s) return false;
+    var y=s.getBoundingClientRect().top+(window.pageYOffset||document.documentElement.scrollTop)-70;
+    window.scrollTo({top:y,behavior:'smooth'}); return true;
+  }
+  function gotoSoins(e){
+    if(e){e.preventDefault(); e.stopPropagation();}
+    if(onHome()){ if(!scrollSoins()){ var n=0,t=setInterval(function(){ if(scrollSoins()||++n>12) clearInterval(t); },250); } }
+    else{ location.assign(BASE+'/#soins'); }
+  }
   function hideOriginalHeader(){
     if(document.getElementById('rd-hidehead')) return;
     var st=document.createElement('style'); st.id='rd-hidehead';
@@ -74,7 +87,13 @@
     var mid=document.createElement('div');
     mid.style.cssText='display:flex;flex-direction:row;align-items:center;gap:34px;flex-wrap:nowrap';
     LINKS.forEach(function(p){
-      var a=navItem('div',p[0],p[1]);
+      var a;
+      if(p[1]==='#soins'){ // Soins = scroll vers la section de l'accueil (plus de page)
+        a=document.createElement('div'); a.textContent=p[0];
+        a.setAttribute('role','link'); a.setAttribute('tabindex','0');
+        a.addEventListener('click',gotoSoins);
+        a.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' ') gotoSoins(e); });
+      } else { a=navItem('div',p[0],p[1]); }
       a.style.cssText='color:#fff;font-size:16px;font-weight:500;white-space:nowrap;cursor:pointer;'
         +'text-shadow:0 1px 3px rgba(0,0,0,.35)';
       mid.appendChild(a);
@@ -127,6 +146,11 @@
       var t=norm(a.textContent); var h=a.getAttribute('href')||'';
       if(t==='News'||t==='Blogs'||t==='Blog'||t==='Journal'||/\/blog/.test(h)){ (a.closest('li')||a).style.display='none'; a.style.display='none'; return; }
       if(M[t]) setText(a,M[t]);
+      // Soins/Service dans le footer -> scroll section (la page est supprimée)
+      if(t==='Service'||t==='Services'||t==='Soins'||/\/service/.test(h)){
+        a.setAttribute('href',BASE+'/#soins');
+        if(!a.__rdsoins){ a.__rdsoins=1; a.addEventListener('click',gotoSoins,true); }
+      }
     });
   }
   function translateContent(){
@@ -167,11 +191,23 @@
       if(t.length>42) return;              // évite d'attraper une carte entière
       if(isMoreLabel(t)) toRDV(el);
     });
-    // 2) liens directs vers les pages détail supprimées -> Contact
+    // 2) liens vers les pages détail supprimées -> Contact
     document.querySelectorAll('a[href*="/service/"]').forEach(function(a){
       var h=a.getAttribute('href')||'';
       if(/\/service\/[a-z0-9-]+\/?(index\.html)?($|[?#])/i.test(h) && !/\/service\/?(index\.html)?($|[?#])/i.test(h)){
         a.setAttribute('href', CONTACT);
+      }
+    });
+    // 3) « Voir tous nos soins » / lien vers la page Soins supprimée -> scroll section
+    document.querySelectorAll('a,button,[role="link"],[role="button"]').forEach(function(el){
+      if(el.id==='rd-navbar'||el.closest('#rd-navbar')||el.__rdsoins) return;
+      var t=norm(el.textContent).toLowerCase().replace(/[«»↗→\s]+/g,' ').trim();
+      var h=(el.getAttribute&&el.getAttribute('href'))||'';
+      var isSoinsLink=/\/service\/?(index\.html)?($|[?#])/i.test(h);
+      if(t==='voir tous nos soins'||t==='voir tous les soins'||t==='see all services'||t==='nos soins'||isSoinsLink){
+        el.__rdsoins=1; el.style.cursor='pointer';
+        if(el.tagName==='A') el.setAttribute('href',BASE+'/#soins');
+        el.addEventListener('click',gotoSoins,true);
       }
     });
   }
@@ -202,6 +238,10 @@
     var obs=new MutationObserver(schedule);
     try{ obs.observe(document.body,{childList:true,subtree:true}); }catch(e){}
     setTimeout(function(){ try{obs.disconnect();}catch(e){} },20000);
+    // arrivée sur l'accueil avec #soins => descendre vers la section Soins
+    if(onHome() && location.hash==='#soins'){
+      var n=0,t2=setInterval(function(){ if(scrollSoins()||++n>16) clearInterval(t2); },300);
+    }
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 })();
