@@ -346,7 +346,8 @@
   if(!window.__rdOvl){ window.__rdOvl=1;
     window.addEventListener('scroll',scheduleSync,true);
     window.addEventListener('resize',scheduleSync,true);
-    setInterval(scheduleSync,700);
+    // refresh perpétuel : React remplace les nœuds des cartes après hydratation
+    setInterval(function(){ scheduleSync(); try{refreshFCards();}catch(e){} },700);
   }
 
   // ---------- 5) SOINS : image qui SUIT le curseur au survol (effet d'origine restauré) ----------
@@ -359,20 +360,30 @@
   function ensureFollow(){
     if(FOLLOW && document.body.contains(FOLLOW)) return FOLLOW;
     FOLLOW=document.createElement('img'); FOLLOW.id='rd-follow-img'; FOLLOW.alt='';
-    FOLLOW.style.cssText='position:fixed;left:0;top:0;width:300px;height:200px;object-fit:cover;'
-      +'border-radius:16px;box-shadow:0 20px 55px rgba(11,30,23,.4);pointer-events:none;'
+    FOLLOW.style.cssText='position:fixed;left:0;top:0;width:340px;height:300px;object-fit:cover;'
+      +'border-radius:16px;box-shadow:0 22px 60px rgba(11,30,23,.45);pointer-events:none;'
       +'z-index:2147482900;opacity:0;transform:translate(-50%,-50%) scale(.6);'
       +'transition:opacity .3s ease, transform .35s cubic-bezier(.2,.85,.25,1);will-change:transform,opacity;';
     document.body.appendChild(FOLLOW);
     return FOLLOW;
   }
-  function cardImg(card){
-    var im=card.querySelector('[data-framer-name="Image Wrapper"] img'); if(!im) return null;
-    var s=im.currentSrc||im.getAttribute('src')||'';
-    if(!s){ var ss=im.getAttribute('srcset')||''; s=(ss.split(',')[0]||'').trim().split(' ')[0]; }
-    return s||null;
+  function imgSrc(im){ if(!im) return ''; var s=im.currentSrc||im.getAttribute('src')||'';
+    if(!s){ var ss=im.getAttribute('srcset')||''; s=(ss.split(',')[0]||'').trim().split(' ')[0]; } return s||''; }
+  // ⚠️ Après hydratation, Framer REMPLACE « Service Card Tablet » par « Service Card »
+  // (nom différent) => on ne cible PAS le nom du calque : on part des « Image Wrapper »
+  // (4, stables) DANS la section Soins, et on prend comme zone de survol le lien/carte parent.
+  function refreshFCards(){
+    var sec=document.querySelector(SOINS_SEL); var out=[];
+    if(sec){
+      var wraps=sec.querySelectorAll('[data-framer-name="Image Wrapper"]');
+      for(var i=0;i<wraps.length;i++){ var w=wraps[i];
+        var card=w.closest('[data-framer-name="Service Card"]')||w.closest('[data-framer-name="Service Card Tablet"]')||w.closest('a')||w.parentElement;
+        var src=imgSrc(w.querySelector('img'));
+        if(card && src) out.push({card:card,src:src});
+      }
+    }
+    FCARDS=out;
   }
-  function refreshFCards(){ FCARDS=[].slice.call(document.querySelectorAll('[data-framer-name="Service Card Tablet"]')); }
   function followTick(){
     followRAF=null;
     fx+=(tx-fx)*0.18; fy+=(ty-fy)*0.18;                 // lerp = suivi doux
@@ -383,12 +394,12 @@
   function onFollowMove(e){
     if(!FCARDS.length) return;
     var x=e.clientX, y=e.clientY, hit=null;
-    for(var i=0;i<FCARDS.length;i++){ var r=FCARDS[i].getBoundingClientRect();
+    for(var i=0;i<FCARDS.length;i++){ var r=FCARDS[i].card.getBoundingClientRect();
       if(r.width>4 && x>=r.left && x<=r.right && y>=r.top && y<=r.bottom){ hit=FCARDS[i]; break; } }
-    tx=x+28; ty=y+28;                                   // léger décalage bas-droite du curseur
+    tx=x+30; ty=y+24;                                   // léger décalage du curseur
     if(hit){
       ensureFollow();
-      if(hit!==curCard){ curCard=hit; var src=cardImg(hit); if(src) FOLLOW.src=src; }
+      if(hit.card!==curCard){ curCard=hit.card; if(hit.src) FOLLOW.src=hit.src; }
       if(!followOn){ followOn=true;
         fx=tx; fy=ty; FOLLOW.style.left=fx+'px'; FOLLOW.style.top=fy+'px';   // départ sans saut
         FOLLOW.style.opacity='1'; FOLLOW.style.transform='translate(-50%,-50%) scale(1) rotate(-2.5deg)';
