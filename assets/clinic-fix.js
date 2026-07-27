@@ -84,7 +84,9 @@
     var bar=document.createElement('div'); bar.id='rd-navbar';
     bar.style.cssText='position:fixed;top:0;left:0;width:100%;z-index:2147483000;display:flex;'
       +'align-items:center;justify-content:space-between;gap:20px;padding:16px 5%;box-sizing:border-box;'
-      +'background:transparent;'
+      // voile dégradé subtil : reste « transparent » mais garantit la lisibilité du texte
+      // blanc sur TOUS les héros (sombres comme l'accueil, clairs comme À propos/Équipe)
+      +'background:linear-gradient(180deg, rgba(11,30,23,.55) 0%, rgba(11,30,23,.28) 55%, rgba(11,30,23,0) 100%);'
       +"font-family:'Figtree','Inter',system-ui,sans-serif;";
     // logo (rendu blanc) — <div> cliquable, pas un <a>
     var lg=navItem('div',null,BASE+'/');
@@ -104,7 +106,7 @@
         a.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' ') gotoSoins(e); });
       } else { a=navItem('div',p[0],p[1]); }
       a.style.cssText='color:#fff;font-size:16px;font-weight:500;white-space:nowrap;cursor:pointer;'
-        +'text-shadow:0 1px 3px rgba(0,0,0,.35)';
+        +'text-shadow:0 1px 4px rgba(0,0,0,.55)';
       mid.appendChild(a);
     });
     bar.appendChild(mid);
