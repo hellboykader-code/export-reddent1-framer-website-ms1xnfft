@@ -349,7 +349,58 @@
     setInterval(scheduleSync,700);
   }
 
-  function apply(){ injectCSS(); buildNavbar(); translateContent(); fixServiceCards(); fixFooter(); cleanFooter(); syncOverlays(); }
+  // ---------- 5) SOINS : image qui SUIT le curseur au survol (effet d'origine restauré) ----------
+  // Chaque « Service Card Tablet » a son propre « Image Wrapper » (photo, opacity:0 en SSR).
+  // L'effet natif Framer est neutralisé par nos overlays (pointer-events). On le ré-implémente
+  // au niveau document : mousemove est capté partout (même sous un overlay) ; une image
+  // flottante <img> dans <body> (hors React => auto-réparante) suit la souris avec un léger
+  // lag et affiche la photo PROPRE à la carte survolée.
+  var FOLLOW=null, fx=0, fy=0, tx=0, ty=0, curCard=null, followRAF=null, followOn=false, FCARDS=[];
+  function ensureFollow(){
+    if(FOLLOW && document.body.contains(FOLLOW)) return FOLLOW;
+    FOLLOW=document.createElement('img'); FOLLOW.id='rd-follow-img'; FOLLOW.alt='';
+    FOLLOW.style.cssText='position:fixed;left:0;top:0;width:300px;height:200px;object-fit:cover;'
+      +'border-radius:16px;box-shadow:0 20px 55px rgba(11,30,23,.4);pointer-events:none;'
+      +'z-index:2147482900;opacity:0;transform:translate(-50%,-50%) scale(.6);'
+      +'transition:opacity .3s ease, transform .35s cubic-bezier(.2,.85,.25,1);will-change:transform,opacity;';
+    document.body.appendChild(FOLLOW);
+    return FOLLOW;
+  }
+  function cardImg(card){
+    var im=card.querySelector('[data-framer-name="Image Wrapper"] img'); if(!im) return null;
+    var s=im.currentSrc||im.getAttribute('src')||'';
+    if(!s){ var ss=im.getAttribute('srcset')||''; s=(ss.split(',')[0]||'').trim().split(' ')[0]; }
+    return s||null;
+  }
+  function refreshFCards(){ FCARDS=[].slice.call(document.querySelectorAll('[data-framer-name="Service Card Tablet"]')); }
+  function followTick(){
+    followRAF=null;
+    fx+=(tx-fx)*0.18; fy+=(ty-fy)*0.18;                 // lerp = suivi doux
+    if(FOLLOW){ FOLLOW.style.left=fx+'px'; FOLLOW.style.top=fy+'px'; }
+    if(Math.abs(tx-fx)>0.4||Math.abs(ty-fy)>0.4) followRAF=requestAnimationFrame(followTick);
+  }
+  function schedFollow(){ if(!followRAF) followRAF=requestAnimationFrame(followTick); }
+  function onFollowMove(e){
+    if(!FCARDS.length) return;
+    var x=e.clientX, y=e.clientY, hit=null;
+    for(var i=0;i<FCARDS.length;i++){ var r=FCARDS[i].getBoundingClientRect();
+      if(r.width>4 && x>=r.left && x<=r.right && y>=r.top && y<=r.bottom){ hit=FCARDS[i]; break; } }
+    tx=x+28; ty=y+28;                                   // léger décalage bas-droite du curseur
+    if(hit){
+      ensureFollow();
+      if(hit!==curCard){ curCard=hit; var src=cardImg(hit); if(src) FOLLOW.src=src; }
+      if(!followOn){ followOn=true;
+        fx=tx; fy=ty; FOLLOW.style.left=fx+'px'; FOLLOW.style.top=fy+'px';   // départ sans saut
+        FOLLOW.style.opacity='1'; FOLLOW.style.transform='translate(-50%,-50%) scale(1) rotate(-2.5deg)';
+      }
+      schedFollow();
+    } else if(followOn){ followOn=false; curCard=null;
+      if(FOLLOW){ FOLLOW.style.opacity='0'; FOLLOW.style.transform='translate(-50%,-50%) scale(.6)'; }
+    }
+  }
+  if(!window.__rdFollow){ window.__rdFollow=1; document.addEventListener('mousemove',onFollowMove,true); }
+
+  function apply(){ injectCSS(); buildNavbar(); translateContent(); fixServiceCards(); fixFooter(); cleanFooter(); syncOverlays(); refreshFCards(); }
   var t=null; function schedule(){ if(t) return; t=setTimeout(function(){t=null;apply();},150); }
   function boot(){
     apply(); [200,500,1000,2000,3500,5000,8000].forEach(function(ms){setTimeout(apply,ms);});
