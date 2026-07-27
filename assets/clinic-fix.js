@@ -153,13 +153,19 @@
     if(!el.__rdcta){ el.__rdcta=1; el.style.cursor='pointer';
       el.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); window.location.href=CONTACT; }, true); }
   }
+  // « En savoir plus », « Lire la suite »… quels que soient les guillemets/flèche/icône
+  function isMoreLabel(t){
+    t=norm(t).replace(/[«»↗→›»→↗\s]+/g,' ').trim().toLowerCase();
+    return t==='en savoir plus'||t==='lire la suite'||t==='read more'||t==='more info'
+         ||t==='discover more'||t==='learn more'||t==='voir le soin'||t==='savoir plus';
+  }
   function fixServiceCards(){
-    // 1) boutons repérés par TEXTE (le href peut être « void(0) » / « # »)
-    document.querySelectorAll('a,button').forEach(function(el){
-      var kids=[].filter.call(el.children,function(c){return c.tagName!=='SPAN'&&c.tagName!=='SVG'&&c.tagName!=='svg';});
-      if(kids.length>0) return;
+    // 1) boutons repérés par TEXTE (le href peut être « void(0) » / « # ») — inclut <div role>
+    document.querySelectorAll('a,button,[role="link"],[role="button"]').forEach(function(el){
+      if(el.id==='rd-navbar'||el.closest('#rd-navbar')) return;   // jamais la nav
       var t=norm(el.textContent);
-      if(t==='En savoir plus'||t==='Lire la suite'||t==='Read more'||t==='More info'||t==='Discover More'||t==='En savoir plus »'){ toRDV(el); }
+      if(t.length>42) return;              // évite d'attraper une carte entière
+      if(isMoreLabel(t)) toRDV(el);
     });
     // 2) liens directs vers les pages détail supprimées -> Contact
     document.querySelectorAll('a[href*="/service/"]').forEach(function(a){
