@@ -146,7 +146,10 @@
     "Chief Dental Officer":"Chirurgien-dentiste en chef","Dental Practice Director":"Directeur du cabinet dentaire",
     "Lead Dentist":"Dentiste référent","Simple online scheduling":"Réservation en ligne simple",
     "General":"Général","Dental":"Dentaire","injury":"Urgence dentaire",
-    "Write your message":"Votre message","Doctor":"Nos praticiens","Our Services":"Nos soins"
+    "Write your message":"Votre message","Doctor":"Nos praticiens","Our Services":"Nos soins",
+    // filet cache : le .mjs (nom inchangé) peut resservir ces valeurs ~10 min
+    "Service *":"Soin *","Services":"Nos soins","info@reddent.com":"contact@reddent.fr",
+    "+(452 ) 125482215421254":"+33 1 23 45 67 89"
   };
   // Footer : traduire les libellés de nav + masquer News/Blogs (le .mjs réinjecte l'anglais)
   function fixFooter(){
