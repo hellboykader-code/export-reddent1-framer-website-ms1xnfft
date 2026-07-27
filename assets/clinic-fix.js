@@ -198,14 +198,28 @@
         a.setAttribute('href', CONTACT);
       }
     });
-    // 3) « Voir tous nos soins » / lien vers la page Soins supprimée -> scroll section
+    // 3) « Voir tous nos soins » -> SUPPRIMÉ ; « À propos de RedDent » -> page À propos ;
+    //    autres liens vers la page Soins supprimée -> scroll section.
     document.querySelectorAll('a,button,[role="link"],[role="button"]').forEach(function(el){
-      if(el.id==='rd-navbar'||el.closest('#rd-navbar')||el.__rdsoins) return;
+      if(el.id==='rd-navbar'||el.closest('#rd-navbar')||el.__rdcta3) return;
       var t=norm(el.textContent).toLowerCase().replace(/[«»↗→\s]+/g,' ').trim();
       var h=(el.getAttribute&&el.getAttribute('href'))||'';
-      var isSoinsLink=/\/service\/?(index\.html)?($|[?#])/i.test(h);
-      if(t==='voir tous nos soins'||t==='voir tous les soins'||t==='see all services'||t==='nos soins'||isSoinsLink){
-        el.__rdsoins=1; el.style.cursor='pointer';
+      // a) bouton « Voir tous nos soins » -> masquer complètement
+      if(t==='voir tous nos soins'||t==='voir tous les soins'||t==='see all services'){
+        el.__rdcta3=1; el.style.display='none';
+        var pr=el.parentElement; if(pr && norm(pr.textContent).toLowerCase().replace(/[«»↗→\s]+/g,' ').trim()===t) pr.style.display='none';
+        return;
+      }
+      // b) « À propos de RedDent » (CTA void(0)) -> page À propos
+      if(t==='à propos de reddent'||t==='a propos de reddent'||t==='à propos de red dent'){
+        el.__rdcta3=1; el.style.cursor='pointer';
+        if(el.tagName==='A') el.setAttribute('href',BASE+'/about/');
+        el.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); location.assign(BASE+'/about/'); },true);
+        return;
+      }
+      // c) autre lien direct vers /service/ (footer…) -> scroll section
+      if(/\/service\/?(index\.html)?($|[?#])/i.test(h)){
+        el.__rdcta3=1; el.style.cursor='pointer';
         if(el.tagName==='A') el.setAttribute('href',BASE+'/#soins');
         el.addEventListener('click',gotoSoins,true);
       }
