@@ -12,7 +12,9 @@
       '[data-framer-name*="Testimonial"]{display:none !important}',
       '[data-framer-name*="Review"]{display:none !important}',
       '[data-framer-name*="Blog Section"]{display:none !important}',
-      '[data-framer-name*="Blog Card"]{display:none !important}'
+      '[data-framer-name*="Blog Card"]{display:none !important}',
+      // « Voir tous nos soins » = le seul Button Primary de la section Soins -> masqué
+      '[data-framer-name="Service Section"] [data-framer-name="Button Primary"]{display:none !important}'
     ].join('');
     var st=document.createElement('style'); st.id='reddent-fix-css'; st.textContent=css;
     (document.head||document.documentElement).appendChild(st);
@@ -27,6 +29,13 @@
     if(!walk(el)) el.textContent=val;
   }
   function norm(s){ return (s||'').replace(/\s+/g,' ').trim(); }
+  // ⭐ Framer DOUBLE le libellé d'un bouton (copie masquée pour l'effet hover) :
+  // textContent = « À propos de RedDentÀ propos de RedDent ». On nettoie + dé-duplique.
+  function btnText(el){
+    var t=norm((el&&el.textContent)||'').replace(/[«»↗→›]/g,'').replace(/\s+/g,' ').trim().toLowerCase();
+    while(t.length>1 && t.length%2===0 && t.slice(0,t.length/2)===t.slice(t.length/2)) t=t.slice(0,t.length/2);
+    return t.trim();
+  }
 
   // ---------- 1) BARRE DE NAV 100% CUSTOM (indépendante de React) ----------
   // On masque l'en-tête Framer d'origine et on injecte NOTRE barre dans <body>
@@ -179,15 +188,14 @@
   }
   // « En savoir plus », « Lire la suite »… quels que soient les guillemets/flèche/icône
   function isMoreLabel(t){
-    t=norm(t).replace(/[«»↗→›»→↗\s]+/g,' ').trim().toLowerCase();
-    return t==='en savoir plus'||t==='lire la suite'||t==='read more'||t==='more info'
-         ||t==='discover more'||t==='learn more'||t==='voir le soin'||t==='savoir plus';
+    return starts(t,'en savoir plus')||starts(t,'lire la suite')||starts(t,'read more')||starts(t,'more info')
+         ||starts(t,'discover more')||starts(t,'learn more')||starts(t,'voir le soin')||starts(t,'savoir plus');
   }
   function fixServiceCards(){
     // 1) boutons repérés par TEXTE (le href peut être « void(0) » / « # ») — inclut <div role>
     document.querySelectorAll('a,button,[role="link"],[role="button"]').forEach(function(el){
       if(el.id==='rd-navbar'||el.closest('#rd-navbar')) return;   // jamais la nav
-      var t=norm(el.textContent);
+      var t=btnText(el);                   // dé-dupliqué (Framer double le libellé)
       if(t.length>42) return;              // évite d'attraper une carte entière
       if(isMoreLabel(t)) toRDV(el);
     });
@@ -244,6 +252,24 @@
       (a.closest('li')||a).style.display='none'; a.style.display='none';
     });
   }
+
+  // ⭐ INTERCEPTEUR DE CLIC GLOBAL (capture, sur document) — survit aux re-render React
+  // et précède le routeur Framer. Redirige les CTA (dont href réécrit en void(0)).
+  function starts(t,l){ return t.indexOf(l)===0; }   // gère le libellé doublé par Framer
+  function ctaDest(el){
+    var t=btnText(el);
+    if(starts(t,'à propos de reddent')||starts(t,'a propos de reddent')||starts(t,'à propos de red dent')) return BASE+'/about/';
+    if(starts(t,'en savoir plus')||starts(t,'lire la suite')||starts(t,'read more')||starts(t,'discover more')
+       ||starts(t,'more info')||starts(t,'learn more')||starts(t,'savoir plus')) return BASE+'/contact/';
+    return null;
+  }
+  function onDocClick(e){
+    var el=e.target&&e.target.closest?e.target.closest('a,button,[role="link"],[role="button"]'):null;
+    if(!el||el.closest('#rd-navbar')) return;
+    var dest=ctaDest(el);
+    if(dest){ e.preventDefault(); e.stopImmediatePropagation(); location.assign(dest); }
+  }
+  if(!window.__rdClick){ window.__rdClick=1; document.addEventListener('click',onDocClick,true); }
 
   function apply(){ injectCSS(); buildNavbar(); translateContent(); fixServiceCards(); fixFooter(); cleanFooter(); }
   var t=null; function schedule(){ if(t) return; t=setTimeout(function(){t=null;apply();},150); }
