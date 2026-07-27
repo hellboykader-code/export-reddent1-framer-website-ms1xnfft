@@ -256,18 +256,36 @@
   // ⭐ INTERCEPTEUR DE CLIC GLOBAL (capture, sur document) — survit aux re-render React
   // et précède le routeur Framer. Redirige les CTA (dont href réécrit en void(0)).
   function starts(t,l){ return t.indexOf(l)===0; }   // gère le libellé doublé par Framer
-  function ctaDest(el){
+  // Toutes les destinations internes de l'accueil, mappées par LIBELLÉ (le href est réécrit
+  // en void(0) par Framer ; seul le texte reste fiable, même après re-render React).
+  function destFor(el){
     var t=btnText(el);
-    if(starts(t,'à propos de reddent')||starts(t,'a propos de reddent')||starts(t,'à propos de red dent')) return BASE+'/about/';
-    if(starts(t,'en savoir plus')||starts(t,'lire la suite')||starts(t,'read more')||starts(t,'discover more')
-       ||starts(t,'more info')||starts(t,'learn more')||starts(t,'savoir plus')) return BASE+'/contact/';
+    if(!t) return null;
+    // 1) nav / liens simples (égalité, libellés courts)
+    if(t==='accueil') return BASE+'/';
+    if(t==='à propos'||t==='a propos') return BASE+'/about/';
+    if(t==='équipe'||t==='equipe') return BASE+'/doctors/';
+    if(t==='contact'||starts(t,'nous contacter')||starts(t,'contactez')) return BASE+'/contact/';
+    if(t==='soins') return '#soins';
+    // 2) CTA pastilles
+    if(starts(t,'à propos de reddent')||starts(t,'a propos de reddent')) return BASE+'/about/';
+    if(starts(t,'prendre rendez-vous')||starts(t,'prenez rendez-vous')||starts(t,'réserver')||starts(t,'reserver')) return BASE+'/contact/';
+    if(starts(t,'voir tous les praticiens')||starts(t,'voir notre équipe')||starts(t,'voir toute')||starts(t,'rencontrez')) return BASE+'/doctors/';
+    if(isMoreLabel(t)) return BASE+'/contact/';
+    // 3) cartes praticiens (« Dr. … » ou « Kane Williamson ») -> page Équipe (liste fiable)
+    if(starts(t,'dr.')||starts(t,'dr ')||starts(t,'kane williamson')) return BASE+'/doctors/';
+    // 4) cartes soins (le texte de carte contient un terme dentaire) -> Contact
+    if(/dentisterie|orthodontie|implant|blanchiment|détartrage|facette|couronne|carie/.test(t)) return BASE+'/contact/';
     return null;
   }
   function onDocClick(e){
     var el=e.target&&e.target.closest?e.target.closest('a,button,[role="link"],[role="button"]'):null;
-    if(!el||el.closest('#rd-navbar')) return;
-    var dest=ctaDest(el);
-    if(dest){ e.preventDefault(); e.stopImmediatePropagation(); location.assign(dest); }
+    if(!el||el.closest('#rd-navbar')||el.closest('form')) return;   // jamais nav ni formulaire
+    var dest=destFor(el);
+    if(!dest) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    if(dest==='#soins'){ gotoSoins(e); return; }
+    location.assign(dest);
   }
   if(!window.__rdClick){ window.__rdClick=1; document.addEventListener('click',onDocClick,true); }
 
