@@ -52,12 +52,12 @@
     if(!f.checkValidity()){ if(err){err.textContent='Merci de remplir tous les champs obligatoires.'; err.hidden=false;} f.reportValidity(); return; }
     var btn=f.querySelector('.ob-submit'); if(btn){ btn.disabled=true; btn.textContent='Envoi…'; }
     var data=new FormData(f);
-    data.append('_subject','Nouvelle demande de rendez-vous — RedDent');
+    data.append('site','reddent'); data.append('_subject','Nouvelle demande de rendez-vous — RedDent');
     data.append('_captcha','false'); data.append('_template','table');
     var shown=false;
     function ok(){ if(shown)return; shown=true; submitted=true; render(); guard(); }
     try{
-      fetch('https://formsubmit.co/ajax/'+DOCTOR_EMAIL,{method:'POST',headers:{'Accept':'application/json'},body:data})
+      fetch('https://dentwebpro.site/send.php',{method:'POST',body:data})
         .then(function(r){ return r.json().catch(function(){return {};}); }).then(ok).catch(ok);
     }catch(e){ ok(); }
     setTimeout(ok,6000);   /* filet de sécurité : afficher le remerciement même si le service est lent/injoignable */
